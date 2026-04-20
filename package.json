@@ -11,7 +11,14 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "body-parser": "^2.2.2",
+    "cookie-parser": "^1.4.7",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "md5": "^2.3.0",
+    "mongoose": "^9.4.1",
+    "nodemailer": "^8.0.5"
   },
   "devDependencies": {
     "@types/express": "^5.0.6",
