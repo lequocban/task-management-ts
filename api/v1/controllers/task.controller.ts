@@ -4,6 +4,7 @@ import Task from "../models/task.model";
 import paginationHelper from "../../../helper/pagination";
 import searchHelper from "../../../helper/search";
 
+// [GET]  /tasks
 export const index = async (req: Request, res: Response) => {
   interface Find {
     deleted: boolean;
@@ -69,9 +70,22 @@ export const index = async (req: Request, res: Response) => {
   res.json(tasks);
 };
 
+// [GET]  /tasks/detail/:id
 export const detail = async (req: Request, res: Response) => {
   const id: string = req.params.id as string;
   const task = await Task.findOne({ _id: id, deleted: false });
 
   res.json(task);
+};
+
+// [PATCH]  /tasks/change-status/:id
+export const changeStatus = async (req: Request, res: Response) => {
+  try {
+    const id: string = req.params.id as string;
+    const status: string = req.body.status as string;
+    await Task.updateOne({ _id: id }, { status: status });
+    res.json({ code: 200, message: "Cập nhật trạng thái thành công" });
+  } catch (error) {
+    res.status(400).json({ code: 400, message: "Không tồn tại!" });
+  }
 };
