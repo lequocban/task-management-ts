@@ -89,3 +89,34 @@ export const changeStatus = async (req: Request, res: Response) => {
     res.status(400).json({ code: 400, message: "Không tồn tại!" });
   }
 };
+
+// [PATCH]  /tasks/change-multi
+export const changeMulti = async (req: Request, res: Response) => {
+  try {
+    const ids: string[] = req.body.ids as string[];
+    const key: string = req.body.key as string;
+    const value: string = req.body.value as string;
+
+    switch (key) {
+      case "status":
+        await Task.updateMany({ _id: { $in: ids } }, { status: value });
+        res.json({ code: 200, message: "Cập nhật trạng thái thành công" });
+        break;
+
+      case "delete":
+        const deletedAt = new Date();
+        await Task.updateMany(
+          { _id: { $in: ids } },
+          { deleted: true, deletedAt }
+        );
+        res.json({ code: 200, message: "Xóa thành công" });
+        break;
+
+      default:
+        res.status(400).json({ code: 400, message: "Không tồn tại!" });
+        break;
+    }
+  } catch (error) {
+    res.status(400).json({ code: 400, message: "Không tồn tại!" });
+  }
+};

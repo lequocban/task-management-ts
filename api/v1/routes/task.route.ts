@@ -9,5 +9,6 @@ router.get("/detail/:id", controllers.detail);
 
 router.patch("/change-status/:id", controllers.changeStatus);
 
+router.patch("/change-multi", controllers.changeMulti);
 
 export const taskRoutes: Router = router;
