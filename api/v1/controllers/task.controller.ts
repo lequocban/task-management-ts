@@ -134,3 +134,35 @@ export const create = async (req: Request, res: Response) => {
     res.status(400).json({ code: 400, message: "Lỗi!" });
   }
 };
+
+// [PATCH]  /tasks/edit/:id
+export const edit = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const updates = req.body;
+    const task = await Task.findByIdAndUpdate(id, updates);
+    if (!task) {
+      return res.status(404).json({ code: 404, message: "Task not found" });
+    }
+    res.json({ code: 200, message: "Cập nhật task thành công" });
+  } catch (error) {
+    res.status(400).json({ code: 400, message: "Lỗi!" });
+  }
+};
+
+// [DELETE]  /tasks/delete/:id
+export const deleteTask = async (req: Request, res: Response) => {
+  try {
+    const id = req.params.id;
+    const task = await Task.findByIdAndUpdate(id, {
+      deleted: true,
+      deletedAt: new Date(),
+    });
+    if (!task) {
+      return res.status(404).json({ code: 404, message: "Task not found" });
+    }
+    res.json({ code: 200, message: "Xóa task thành công" });
+  } catch (error) {
+    res.status(400).json({ code: 400, message: "Lỗi!" });
+  }
+};
