@@ -120,3 +120,17 @@ export const changeMulti = async (req: Request, res: Response) => {
     res.status(400).json({ code: 400, message: "Không tồn tại!" });
   }
 };
+
+// [POST]  /tasks/create
+export const create = async (req: Request, res: Response) => {
+  try {
+    // req.body.createdBy = req.user.id;
+    const task = new Task(req.body);
+    const data = await task.save();
+    res
+      .status(201)
+      .json({ code: 201, message: "Tạo mới thành công", data: data });
+  } catch (error) {
+    res.status(400).json({ code: 400, message: "Lỗi!" });
+  }
+};
