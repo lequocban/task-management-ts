@@ -47,7 +47,12 @@ database.connect();
 const app = (0, express_1.default)();
 const port = process.env.PORT || 4000;
 app.use(body_parser_1.default.json());
-app.use((0, cors_1.default)());
+const corsOptions = {
+    origin: "https://frontend-task-management-sooty.vercel.app",
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    credentials: true,
+};
+app.use((0, cors_1.default)(corsOptions));
 (0, index_route_1.default)(app);
 app.listen(port, () => {
     console.log(`App listening on port ${port}`);

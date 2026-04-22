@@ -16,7 +16,12 @@ const port: number | string = process.env.PORT || 4000;
 app.use(bodyParser.json());
 
 // cors
-app.use(cors());
+const corsOptions = {
+  origin: "https://frontend-task-management-sooty.vercel.app", // Thay bằng link frontend thực tế
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Thêm dòng này nếu API của bạn có lưu cookie hoặc token
+};
+app.use(cors(corsOptions));
 
 mainV1Routes(app);
 
