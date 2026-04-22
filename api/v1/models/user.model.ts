@@ -1,4 +1,4 @@
-const { default: mongoose } = require("mongoose");
+import mongoose from "mongoose";
 
 const userSchema = new mongoose.Schema(
   {
@@ -8,20 +8,12 @@ const userSchema = new mongoose.Schema(
     token: String,
     phone: String,
     avatar: String,
-    status: {
-      type: String,
-      default: "active",
-    },
-    deleted: {
-      type: Boolean,
-      default: false,
-    },
+    status: { type: String, default: "active" },
+    deleted: { type: Boolean, default: false },
     deletedAt: Date,
   },
-  {
-    timestamps: true,
-  },
+  { timestamps: true },
 );
 const User = mongoose.model("User", userSchema, "users");
 
-module.exports = User;
+export default User;
